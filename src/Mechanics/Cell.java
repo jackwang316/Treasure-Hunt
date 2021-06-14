@@ -21,7 +21,7 @@ public class Cell {
         this.isVisited = true;
     }
 
-    public void setWall(){
-        this.isWall = true;
+    public void setWall(boolean walled){
+        this.isWall = walled;
     }
 }
