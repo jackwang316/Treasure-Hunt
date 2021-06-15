@@ -30,6 +30,14 @@ public class Maze {
         removeCornerWalls();
     }
 
+    public void revealAll(){
+        for(int i = 0; i < HEIGHT; i++){
+            for (int j = 0; j < WIDTH; j++){
+                cells.get(i).get(j).setVisited();
+            }
+        }
+    }
+
     private void binaryTreeGenerate() {
         for(int i = 1; i < HEIGHT - 1; i++) {
             for(int j = 1; (j < WIDTH - 1); j++) {
