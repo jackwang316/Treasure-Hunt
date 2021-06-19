@@ -1,8 +1,16 @@
 package UI;
 
+import Mechanics.Maze;
+
 import java.util.Scanner;
 
 public class Menu {
+    private Maze maze;
+
+    public Menu(Maze m){
+        this.maze = m;
+    }
+
     public void printHelp(){
         System.out.println("DIRECTIONS:");
         System.out.println("    Collect 3 relics!");
@@ -35,5 +43,9 @@ public class Menu {
     public boolean isInputValid(String input) {
         return (input.equals("w") || input.equals("a") || input.equals("s") || input.equals("d")
                 || input.equals("?") || input.equals("m") || input.equals("c"));
+    }
+
+    public static void printMaze(){
+
     }
 }

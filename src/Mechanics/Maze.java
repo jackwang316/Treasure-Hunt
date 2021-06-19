@@ -15,6 +15,7 @@ public class Maze {
                 cells.get(i).add(new Cell());
             }
         }
+        initMaze();
     }
 
     public void initMaze(){
@@ -65,22 +66,6 @@ public class Maze {
 
     public Cell getCell(int x, int y){
         return cells.get(y).get(x);
-    }
-
-    public static void main(String[] args){
-        Maze m = new Maze();
-        m.initMaze();
-        for(int i = 0; i < HEIGHT; i++){
-            for(int j = 0; j < WIDTH; j++){
-                Cell temp = m.cells.get(i).get(j);
-                if(temp.isWalled()){
-                    System.out.print("#");
-                }else{
-                    System.out.print(" ");
-                }
-            }
-            System.out.print("\n");
-        }
     }
 }
 
