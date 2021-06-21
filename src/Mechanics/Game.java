@@ -9,7 +9,7 @@ public class Game {
 
     public Game(){
         this.maze = new Maze();
-        this.menu = new Menu(this.maze);
+        this.menu = new Menu();
         this.player = new Player();
         this.relic = new Relic();
     }
@@ -30,24 +30,28 @@ public class Game {
                 temp = maze.getCell(player.getX() - 1, player.getY());
                 if(!temp.isWalled()){
                     player.move(player.getX() - 1, player.getY());
+                    maze.revealNearPlayer(player.getX(), player.getY());
                     return true;
                 }
             } else if(choice.equals("w")) {
                 temp = maze.getCell(player.getX(), player.getY() - 1);
                 if(!temp.isWalled()) {
                     player.move(player.getX(), player.getY() - 1);
+                    maze.revealNearPlayer(player.getX(), player.getY());
                     return true;
                 }
             } else if(choice.equals("s")) {
                 temp = maze.getCell(player.getX(), player.getY() + 1);
                 if(!temp.isWalled()) {
                     player.move(player.getX(), player.getY() + 1);
+                    maze.revealNearPlayer(player.getX(), player.getY());
                     return true;
                 }
             } else if(choice.equals("d")) {
                 temp = maze.getCell(player.getX() + 1, player.getY());
                 if (!temp.isWalled()) {
                     player.move(player.getX() + 1, player.getY());
+                    maze.revealNearPlayer(player.getX(), player.getY());
                     return true;
                 }
             }
@@ -57,5 +61,7 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
+        game.menu.printHelp();
+        game.menu.printRelicInfo(game.relic);
     }
 }

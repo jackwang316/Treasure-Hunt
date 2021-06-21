@@ -31,6 +31,16 @@ public class Maze {
         removeCornerWalls();
     }
 
+    public void revealNearPlayer(int x, int y){
+        for(int i = x - 1; i < x + 1; i++){
+            for(int j = y - 1; j < y + 1; j++){
+                if((i < WIDTH - 1 && i >= 0) && (j < HEIGHT - 1 && j >= 0)) {
+                    getCell(x, y).setVisited();
+                }
+            }
+        }
+    }
+
     public void revealAll(){
         for(int i = 0; i < HEIGHT; i++){
             for (int j = 0; j < WIDTH; j++){

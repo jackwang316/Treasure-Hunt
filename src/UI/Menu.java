@@ -1,16 +1,9 @@
 package UI;
-
-import Mechanics.Maze;
+import Mechanics.Relic;
 
 import java.util.Scanner;
 
 public class Menu {
-    private Maze maze;
-
-    public Menu(Maze m){
-        this.maze = m;
-    }
-
     public void printHelp(){
         System.out.println("DIRECTIONS:");
         System.out.println("    Collect 3 relics!");
@@ -40,12 +33,13 @@ public class Menu {
         return input;
     }
 
+    public void printRelicInfo(Relic relic) {
+        System.out.println("Total number of relics to be collected: " + relic.getNumSpawns());
+        System.out.println("Number of relics currently in possession: " + relic.getNumCollected());
+    }
+
     public boolean isInputValid(String input) {
         return (input.equals("w") || input.equals("a") || input.equals("s") || input.equals("d")
                 || input.equals("?") || input.equals("m") || input.equals("c"));
-    }
-
-    public static void printMaze(){
-
     }
 }
