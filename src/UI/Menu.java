@@ -42,4 +42,8 @@ public class Menu {
         return (input.equals("w") || input.equals("a") || input.equals("s") || input.equals("d")
                 || input.equals("?") || input.equals("m") || input.equals("c"));
     }
+
+    public void printInvalidMove(){
+        System.out.println("Invalid move: you cannot move through walls!");
+    }
 }

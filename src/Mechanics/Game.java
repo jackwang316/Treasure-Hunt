@@ -1,17 +1,23 @@
 package Mechanics;
 import UI.Menu;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Game {
     private Player player;
     private Relic relic;
     private Maze maze;
     private Menu menu;
+    private ArrayList<Guardians> guardians;
+    private int numGuardians = 3;
 
     public Game(){
         this.maze = new Maze();
         this.menu = new Menu();
         this.player = new Player();
         this.relic = new Relic();
+        guardians = new ArrayList<>(numGuardians);
     }
 
     public boolean makeDecision(String choice) {
@@ -56,6 +62,20 @@ public class Game {
                 }
             }
             return false;
+        }
+    }
+
+    public void respawnRelic(){
+        Random rn = new Random();
+        boolean isValidPosition = false;
+        while(!isValidPosition) {
+            int x = rn.nextInt(maze.WIDTH_WITHOUT_WALLS - 1 + 1) + 1;
+            int y = rn.nextInt(maze.HEIGHT_WITHOUT_WALLS - 1 + 1) + 1;
+            Cell temp = maze.getCell(x, y);
+            if(!temp.isWalled() && x != player.getX() && y != player.getY()){
+                relic.respawn(x , y);
+                isValidPosition = true;
+            }
         }
     }
 
