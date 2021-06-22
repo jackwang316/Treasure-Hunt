@@ -34,10 +34,10 @@ public class Maze {
     }
 
     public void revealNearPlayer(int x, int y){
-        for(int i = x - 1; i < x + 1; i++){
-            for(int j = y - 1; j < y + 1; j++){
-                if((i < WIDTH_WITHOUT_WALLS && i >= 0) && (j < HEIGHT_WITHOUT_WALLS && j >= 0)) {
-                    getCell(x, y).setVisited();
+        for(int i = x - 1; i <= x + 1; i++) {
+            for(int j = y - 1; j <= y + 1; j++){
+                if((i > 0 && i < WIDTH) && (j > 0 && j < HEIGHT)){
+                    getCell(i,j).setVisited();
                 }
             }
         }

@@ -4,6 +4,8 @@ import UI.Menu;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static UI.MazePrinter.printMaze;
+
 public class Game {
     private Player player;
     private Relic relic;
@@ -18,6 +20,8 @@ public class Game {
         this.player = new Player();
         this.relic = new Relic();
         guardians = new ArrayList<>(numGuardians);
+        this.respawnRelic();
+        this.maze.revealNearPlayer(player.getX(), player.getY());
     }
 
     public boolean makeDecision(String choice) {
@@ -82,6 +86,11 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
         game.menu.printHelp();
+        game.maze.revealNearPlayer(game.player.getX(), game.player.getY());
+        printMaze(game.maze, game.player, game.relic);
         game.menu.printRelicInfo(game.relic);
+        String input = game.menu.getInput();
+        game.makeDecision(input);
+        printMaze(game.maze, game.player, game.relic);
     }
 }

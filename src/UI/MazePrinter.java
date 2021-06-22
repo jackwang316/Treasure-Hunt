@@ -13,14 +13,14 @@ public class MazePrinter {
                     System.out.print("^");
                 }else{
                     temp = maze.getCell(j, i);
-                    if(temp.isVisited()){
+                    if(!temp.isVisited()){
+                        System.out.print(".");
+                    }else {
                         if(temp.isWalled()) {
                             System.out.print("#");
                         }else {
                             System.out.print(" ");
                         }
-                    }else {
-                        System.out.print(".");
                     }
                 }
             }
