@@ -3,6 +3,7 @@ package Mechanics;
 public class Player {
     private int xPos = 1;
     private int yPos = 1;
+    private boolean isAlive = true;
 
     public Player(){}
 

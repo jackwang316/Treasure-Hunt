@@ -1,10 +1,10 @@
 package Mechanics;
 
-public class Cell {
+public class Tile {
     private boolean isVisited;
     private boolean isWall;
 
-    public Cell(){
+    public Tile(){
         this.isVisited = false;
         this.isWall = false;
     }

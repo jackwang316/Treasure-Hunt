@@ -43,6 +43,10 @@ public class Menu {
                 || input.equals("?") || input.equals("m") || input.equals("c"));
     }
 
+    public void printWinMsg(){
+        System.out.println("Congratulations! You won!");
+    }
+
     public void printInvalidMove(){
         System.out.println("Invalid move: you cannot move through walls!");
     }

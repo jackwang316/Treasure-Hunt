@@ -9,11 +9,11 @@ public class Relic {
     public Relic(){}
 
     public int getNumSpawns(){
-        return numSpawns;
+        return this.numSpawns;
     }
 
     public int getNumCollected(){
-        return numCollected;
+        return this.numCollected;
     }
 
     public void respawn(int x, int y) {
@@ -22,25 +22,23 @@ public class Relic {
     }
 
     public int getXPos(){
-        return xPos;
+        return this.xPos;
     }
 
     public int getYPos(){
-        return yPos;
+        return this.yPos;
     }
 
-    public void collectRelic(int x, int y) {
-        if(isCollected(x, y)) {
-            numSpawns--;
-            numCollected++;
-        }
+    public void collectRelic(){
+        this.numSpawns--;
+        this.numCollected++;
     }
 
     public boolean isCollected(int x, int y){
-        return xPos == x && yPos == y;
+        return this.xPos == x && this.yPos == y;
     }
 
     public void activateCheat(){
-        numSpawns = 1;
+        this.numSpawns = 1;
     }
 }

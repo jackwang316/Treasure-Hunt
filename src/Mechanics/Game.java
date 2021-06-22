@@ -12,61 +12,92 @@ public class Game {
     private Maze maze;
     private Menu menu;
     private ArrayList<Guardians> guardians;
-    private int numGuardians = 3;
+    public final static int NUM_GUARDIANS = 3;
 
     public Game(){
         this.maze = new Maze();
         this.menu = new Menu();
         this.player = new Player();
         this.relic = new Relic();
-        guardians = new ArrayList<>(numGuardians);
+        this.guardians = new ArrayList<>();
+        this.guardians.add(new Guardians(this.maze.WIDTH_WITHOUT_WALLS,1));
+        this.guardians.add(new Guardians(this.maze.WIDTH_WITHOUT_WALLS,this.maze.HEIGHT_WITHOUT_WALLS));
+        this.guardians.add(new Guardians(1,this.maze.HEIGHT_WITHOUT_WALLS));
         this.respawnRelic();
-        this.maze.revealNearPlayer(player.getX(), player.getY());
+        this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
     }
 
     public boolean makeDecision(String choice) {
         if(choice.equals("?")) {
-            menu.printHelp();
-            return true;
+            this.menu.printHelp();
+            return false;
         } else if(choice.equals("m")) {
-            maze.revealAll();
-            return true;
+            this.maze.revealAll();
+            return false;
         } else if(choice.equals("c")){
-            relic.activateCheat();
-            return true;
+            this.relic.activateCheat();
+            return false;
         } else{
-            Cell temp;
+            Tile temp;
             if(choice.equals("a")) {
-                temp = maze.getCell(player.getX() - 1, player.getY());
+                temp = this.maze.getTile(this.player.getX() - 1, this.player.getY());
                 if(!temp.isWalled()){
-                    player.move(player.getX() - 1, player.getY());
-                    maze.revealNearPlayer(player.getX(), player.getY());
+                    this.player.move(this.player.getX() - 1, this.player.getY());
+                    this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
+                    this.relic.isCollected(this.player.getX(), this.player.getY());
                     return true;
                 }
+                this.menu.printInvalidMove();
+                return false;
             } else if(choice.equals("w")) {
-                temp = maze.getCell(player.getX(), player.getY() - 1);
+                temp = this.maze.getTile(this.player.getX(), this.player.getY() - 1);
                 if(!temp.isWalled()) {
-                    player.move(player.getX(), player.getY() - 1);
-                    maze.revealNearPlayer(player.getX(), player.getY());
+                    this.player.move(this.player.getX(), this.player.getY() - 1);
+                    this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
                     return true;
                 }
+                this.menu.printInvalidMove();
+                return false;
             } else if(choice.equals("s")) {
-                temp = maze.getCell(player.getX(), player.getY() + 1);
+                temp = this.maze.getTile(this.player.getX(), this.player.getY() + 1);
                 if(!temp.isWalled()) {
-                    player.move(player.getX(), player.getY() + 1);
-                    maze.revealNearPlayer(player.getX(), player.getY());
+                    this.player.move(this.player.getX(), this.player.getY() + 1);
+                    this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
                     return true;
                 }
+                this.menu.printInvalidMove();
+                return false;
             } else if(choice.equals("d")) {
-                temp = maze.getCell(player.getX() + 1, player.getY());
+                temp = this.maze.getTile(this.player.getX() + 1, this.player.getY());
                 if (!temp.isWalled()) {
-                    player.move(player.getX() + 1, player.getY());
-                    maze.revealNearPlayer(player.getX(), player.getY());
+                    this.player.move(this.player.getX() + 1, this.player.getY());
+                    this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
                     return true;
                 }
+                this.menu.printInvalidMove();
+                return false;
             }
             return false;
         }
+    }
+
+    public void play(){
+        this.menu.printHelp();
+        while (this.relic.getNumSpawns() > 0) {
+            printMaze(this.maze, this.player, this.relic);
+            this.menu.printRelicInfo(this.relic);
+            String input = this.menu.getInput();
+            while (!makeDecision(input)){
+                input = this.menu.getInput();
+            }
+            if(this.relic.isCollected(this.player.getX(), this.player.getY())){
+                this.relic.collectRelic();
+                respawnRelic();
+            }
+        }
+        this.menu.printWinMsg();
+        this.maze.revealAll();
+        printMaze(this.maze, this.player, this.relic);
     }
 
     public void respawnRelic(){
@@ -75,9 +106,9 @@ public class Game {
         while(!isValidPosition) {
             int x = rn.nextInt(maze.WIDTH_WITHOUT_WALLS - 1 + 1) + 1;
             int y = rn.nextInt(maze.HEIGHT_WITHOUT_WALLS - 1 + 1) + 1;
-            Cell temp = maze.getCell(x, y);
-            if(!temp.isWalled() && x != player.getX() && y != player.getY()){
-                relic.respawn(x , y);
+            Tile temp = this.maze.getTile(x, y);
+            if(!temp.isWalled() && x != this.player.getX() && y != this.player.getY()){
+                this.relic.respawn(x , y);
                 isValidPosition = true;
             }
         }
@@ -85,12 +116,6 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
-        game.menu.printHelp();
-        game.maze.revealNearPlayer(game.player.getX(), game.player.getY());
-        printMaze(game.maze, game.player, game.relic);
-        game.menu.printRelicInfo(game.relic);
-        String input = game.menu.getInput();
-        game.makeDecision(input);
-        printMaze(game.maze, game.player, game.relic);
+        game.play();
     }
 }
