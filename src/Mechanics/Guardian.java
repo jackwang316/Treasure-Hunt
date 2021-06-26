@@ -1,10 +1,10 @@
 package Mechanics;
 
-public class Guardians {
+public class Guardian {
     private int xPos;
     private int yPos;
 
-    public Guardians(int x, int y) {
+    public Guardian(int x, int y) {
         this.xPos = x;
         this.yPos = y;
     }

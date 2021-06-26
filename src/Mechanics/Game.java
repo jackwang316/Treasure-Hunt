@@ -11,7 +11,7 @@ public class Game {
     private Relic relic;
     private Maze maze;
     private Menu menu;
-    private ArrayList<Guardians> guardians;
+    private ArrayList<Guardian> guardians;
 
     public Game(){
         this.maze = new Maze();
@@ -19,9 +19,9 @@ public class Game {
         this.player = new Player();
         this.relic = new Relic();
         this.guardians = new ArrayList<>();
-        this.guardians.add(new Guardians(this.maze.WIDTH_WITHOUT_WALLS,1));
-        this.guardians.add(new Guardians(this.maze.WIDTH_WITHOUT_WALLS,this.maze.HEIGHT_WITHOUT_WALLS));
-        this.guardians.add(new Guardians(1,this.maze.HEIGHT_WITHOUT_WALLS));
+        this.guardians.add(new Guardian(this.maze.WIDTH_WITHOUT_WALLS,1));
+        this.guardians.add(new Guardian(this.maze.WIDTH_WITHOUT_WALLS,this.maze.HEIGHT_WITHOUT_WALLS));
+        this.guardians.add(new Guardian(1,this.maze.HEIGHT_WITHOUT_WALLS));
         this.respawnRelic();
         this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
     }
