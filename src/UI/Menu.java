@@ -38,6 +38,14 @@ public class Menu {
         System.out.println("Number of relics currently in possession: " + relic.getNumCollected());
     }
 
+    public void printDeathMsg(){
+        System.out.println("Oh no! The hunter has been killed!\n");
+    }
+
+    public void printGameOver(){
+        System.out.println("GAME OVER... please try again.");
+    }
+
     public boolean isInputValid(String input) {
         return (input.equals("w") || input.equals("a") || input.equals("s") || input.equals("d")
                 || input.equals("?") || input.equals("m") || input.equals("c"));

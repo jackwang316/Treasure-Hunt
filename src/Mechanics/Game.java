@@ -19,9 +19,9 @@ public class Game {
         this.player = new Player();
         this.relic = new Relic();
         this.guardians = new ArrayList<>();
-        this.guardians.add(new Guardian(this.maze.WIDTH_WITHOUT_WALLS,1));
-        this.guardians.add(new Guardian(this.maze.WIDTH_WITHOUT_WALLS,this.maze.HEIGHT_WITHOUT_WALLS));
-        this.guardians.add(new Guardian(1,this.maze.HEIGHT_WITHOUT_WALLS));
+        this.guardians.add(new Guardian(Maze.WIDTH_WITHOUT_WALLS,1));
+        this.guardians.add(new Guardian(Maze.WIDTH_WITHOUT_WALLS, Maze.HEIGHT_WITHOUT_WALLS));
+        this.guardians.add(new Guardian(1, Maze.HEIGHT_WITHOUT_WALLS));
         this.respawnRelic();
         this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
     }
@@ -80,6 +80,22 @@ public class Game {
         }
     }
 
+    public boolean isPlayerDead(){
+        for(Guardian guardian : guardians){
+            if(guardian.getX() == player.getX() && guardian.getY() == player.getY()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void onPlayerDeath(){
+        this.menu.printDeathMsg();
+        printMaze(this.maze, this.player, this.relic, this.guardians);
+        this.menu.printRelicInfo(this.relic);
+        this.menu.printGameOver();
+    }
+
     public void play(){
         this.menu.printHelp();
         while (this.relic.getNumSpawns() > 0) {
@@ -89,7 +105,10 @@ public class Game {
             while (!makeDecision(input)){
                 input = this.menu.getInput();
             }
-            if(this.relic.isCollected(this.player.getX(), this.player.getY())){
+            if(isPlayerDead()){
+                onPlayerDeath();
+                return;
+            }else if(this.relic.isCollected(this.player.getX(), this.player.getY())){
                 this.relic.collectRelic();
                 respawnRelic();
             }
@@ -103,8 +122,8 @@ public class Game {
         Random rn = new Random();
         boolean isValidPosition = false;
         while(!isValidPosition) {
-            int x = rn.nextInt(maze.WIDTH_WITHOUT_WALLS - 1 + 1) + 1;
-            int y = rn.nextInt(maze.HEIGHT_WITHOUT_WALLS - 1 + 1) + 1;
+            int x = rn.nextInt(Maze.WIDTH_WITHOUT_WALLS - 1 + 1) + 1;
+            int y = rn.nextInt(Maze.HEIGHT_WITHOUT_WALLS - 1 + 1) + 1;
             Tile temp = this.maze.getTile(x, y);
             if(!temp.isWalled() && x != this.player.getX() && y != this.player.getY()){
                 this.relic.respawn(x , y);
