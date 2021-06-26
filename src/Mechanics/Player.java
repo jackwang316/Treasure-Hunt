@@ -12,11 +12,15 @@ public class Player {
         this.yPos = y;
     }
 
+    public boolean isAlive(){
+        return this.isAlive;
+    }
+
     public int getX(){
-        return xPos;
+        return this.xPos;
     }
 
     public int getY(){
-        return yPos;
+        return this.yPos;
     }
 }

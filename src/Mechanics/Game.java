@@ -12,7 +12,6 @@ public class Game {
     private Maze maze;
     private Menu menu;
     private ArrayList<Guardians> guardians;
-    public final static int NUM_GUARDIANS = 3;
 
     public Game(){
         this.maze = new Maze();
@@ -84,7 +83,7 @@ public class Game {
     public void play(){
         this.menu.printHelp();
         while (this.relic.getNumSpawns() > 0) {
-            printMaze(this.maze, this.player, this.relic);
+            printMaze(this.maze, this.player, this.relic, this.guardians);
             this.menu.printRelicInfo(this.relic);
             String input = this.menu.getInput();
             while (!makeDecision(input)){
@@ -97,7 +96,7 @@ public class Game {
         }
         this.menu.printWinMsg();
         this.maze.revealAll();
-        printMaze(this.maze, this.player, this.relic);
+        printMaze(this.maze, this.player, this.relic, this.guardians);
     }
 
     public void respawnRelic(){

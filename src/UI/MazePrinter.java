@@ -2,14 +2,20 @@ package UI;
 
 import Mechanics.*;
 
+import java.util.ArrayList;
+
 public class MazePrinter {
-    public static void printMaze(Maze maze, Player player, Relic relic) {
+    public static void printMaze(Maze maze, Player player, Relic relic, ArrayList<Guardians> guardians) {
         System.out.println("Maze:");
         Tile temp;
         for(int i = 0; i < maze.HEIGHT; i++){
             for(int j = 0; j < maze.WIDTH; j++){
                 if(i == player.getY() && j == player.getX()){
-                    System.out.print("@");
+                    if(player.isAlive()) {
+                        System.out.print("@");
+                    }else {
+                        System.out.print("X");
+                    }
                 }else if(i == relic.getYPos() && j == relic.getXPos()) {
                     System.out.print("^");
                 }else{
