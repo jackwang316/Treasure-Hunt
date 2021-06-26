@@ -90,6 +90,7 @@ public class Game {
     }
 
     public void onPlayerDeath(){
+        this.player.playerKilled();
         this.menu.printDeathMsg();
         printMaze(this.maze, this.player, this.relic, this.guardians);
         this.menu.printRelicInfo(this.relic);
@@ -111,6 +112,13 @@ public class Game {
             }else if(this.relic.isCollected(this.player.getX(), this.player.getY())){
                 this.relic.collectRelic();
                 respawnRelic();
+            }
+            for(Guardian guardian : guardians){
+                guardian.move(this.maze);
+            }
+            if(isPlayerDead()){
+                onPlayerDeath();
+                return;
             }
         }
         this.menu.printWinMsg();

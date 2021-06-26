@@ -16,6 +16,10 @@ public class Player {
         return this.isAlive;
     }
 
+    public void playerKilled(){
+        this.isAlive = false;
+    }
+
     public int getX(){
         return this.xPos;
     }
