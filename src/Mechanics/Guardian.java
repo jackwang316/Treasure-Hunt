@@ -9,6 +9,10 @@ public class Guardian {
         this.yPos = y;
     }
 
+    public boolean hasKilledPlayer(int playerX, int playerY){
+        return this.xPos == playerX && this.yPos == playerY;
+    }
+
     public int getX(){
         return this.xPos;
     }
