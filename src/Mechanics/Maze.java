@@ -2,6 +2,14 @@ package Mechanics;
 
 import java.util.ArrayList;
 
+/**
+ * Maze represents the board that the game is played on. The class stores the
+ * dimensions of the maze with/without the border walls and the list of tiles that
+ * make up the maze. The class allows for initializing the maze and generating the maze
+ * through binary tree algorithm. Other features include adding the border walls, revealing the
+ * tiles around the player or the entire maze, removing walls in spawn locations and retrieval of
+ * individual tiles within the maze.
+ */
 public class Maze {
     public static final int HEIGHT = 20;
     public static final int WIDTH = 16;

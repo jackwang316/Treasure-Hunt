@@ -2,10 +2,15 @@ package Mechanics;
 import UI.Menu;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static UI.MazePrinter.printMaze;
 
+/**
+ * The Game class manages the overall gameplay and logic. It stores all the game pieces needed
+ * to play the game such as player, relic, maze, menu, and guardians. The class will take user inputs
+ * and take the appropriate actions, it will also monitor game progress & player status. The class also
+ * handles win/lose scenarios.
+ */
 public class Game {
     private Player player;
     private Relic relic;
@@ -22,7 +27,7 @@ public class Game {
         this.guardians.add(new Guardian(Maze.WIDTH_WITHOUT_WALLS,1));
         this.guardians.add(new Guardian(Maze.WIDTH_WITHOUT_WALLS, Maze.HEIGHT_WITHOUT_WALLS));
         this.guardians.add(new Guardian(1, Maze.HEIGHT_WITHOUT_WALLS));
-        this.respawnRelic();
+        this.relic.respawnRelic(this.maze, this.player);
         this.maze.revealNearPlayer(this.player.getX(), this.player.getY());
     }
 
@@ -92,6 +97,7 @@ public class Game {
     public void onPlayerDeath(){
         this.player.playerKilled();
         this.menu.printDeathMsg();
+        this.maze.revealAll();
         printMaze(this.maze, this.player, this.relic, this.guardians);
         this.menu.printRelicInfo(this.relic);
         this.menu.printGameOver();
@@ -111,7 +117,7 @@ public class Game {
                 return;
             }else if(this.relic.isCollected(this.player.getX(), this.player.getY())){
                 this.relic.collectRelic();
-                respawnRelic();
+                this.relic.respawnRelic(this.maze, this.player);
             }
             for(Guardian guardian : guardians){
                 guardian.move(this.maze);
@@ -124,20 +130,6 @@ public class Game {
         this.menu.printWinMsg();
         this.maze.revealAll();
         printMaze(this.maze, this.player, this.relic, this.guardians);
-    }
-
-    public void respawnRelic(){
-        Random rn = new Random();
-        boolean isValidPosition = false;
-        while(!isValidPosition) {
-            int x = rn.nextInt(Maze.WIDTH_WITHOUT_WALLS - 1 + 1) + 1;
-            int y = rn.nextInt(Maze.HEIGHT_WITHOUT_WALLS - 1 + 1) + 1;
-            Tile temp = this.maze.getTile(x, y);
-            if(!temp.isWalled() && x != this.player.getX() && y != this.player.getY()){
-                this.relic.respawn(x , y);
-                isValidPosition = true;
-            }
-        }
     }
 
     public static void main(String[] args) {

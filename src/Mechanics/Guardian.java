@@ -3,6 +3,12 @@ package Mechanics;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Guardian class represents a guardian in the maze game. The class
+ * stores the x,y coordinates of the current and previous tile. The class
+ * supports generating the next move for the guardian and verify if
+ * the guardian has killed the player.
+ */
 public class Guardian {
     private int xPos;
     private int yPos;
@@ -37,6 +43,7 @@ public class Guardian {
     }
 
     public void move(Maze maze){
+        //Add all available neighbors to array.
         ArrayList<ArrayList<Integer>> coordinates = new ArrayList<>();
         if(!maze.getTile(this.getX() - 1, this.getY()).isWalled()){
             ArrayList<Integer> temp = new ArrayList<>();
@@ -64,6 +71,7 @@ public class Guardian {
         }
 
         if(coordinates.size() > 1) {
+            //Remove the coordinates of the previous move if multiple options available.
             for(int i = 0; i < coordinates.size(); i++){
                 if(coordinates.get(i).get(0) == getPreX() && coordinates.get(i).get(1) == getPrevY()){
                     coordinates.remove(i);
@@ -71,6 +79,7 @@ public class Guardian {
             }
         }
 
+        //Pick a random tile to move to.
         Random rand = new Random();
         int nextCoordinateIndex = rand.nextInt(coordinates.size());
         this.prevX = this.xPos;

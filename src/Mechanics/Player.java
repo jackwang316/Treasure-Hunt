@@ -1,5 +1,10 @@
 package Mechanics;
 
+/**
+ * The player class represents the playable character in the game.
+ * The class stores the current x,y coordinate and tracks if the player is still alive.
+ * The class supports movement of player to a new coordinate.
+ */
 public class Player {
     private int xPos = 1;
     private int yPos = 1;

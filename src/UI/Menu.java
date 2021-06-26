@@ -3,6 +3,10 @@ import Mechanics.Relic;
 
 import java.util.Scanner;
 
+/**
+ * The Menu class provides a UI to the player. It can display a help menu,
+ * win/lose messages, game progression info, and gather and verify user inputs.
+ */
 public class Menu {
     public void printHelp(){
         System.out.println("DIRECTIONS:");

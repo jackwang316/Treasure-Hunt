@@ -4,6 +4,10 @@ import Mechanics.*;
 
 import java.util.ArrayList;
 
+/**
+ * MazePrinter helps with printing the maze to the terminal in ASCII characters through
+ * its printMaze().
+ */
 public class MazePrinter {
     public static void printMaze(Maze maze, Player player, Relic relic, ArrayList<Guardian> guardians) {
         System.out.println("Maze:");
