@@ -24,7 +24,7 @@ public class Relic {
         return this.numCollected;
     }
 
-    public void move(int x, int y) {
+    private void move(int x, int y) {
         this.xPos = x;
         this.yPos = y;
     }
